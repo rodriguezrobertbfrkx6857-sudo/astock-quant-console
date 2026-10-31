@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/astock-quant/integrated-v2-settings.schema.json",
+  "title": "Integrated V2 local-only settings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "safety", "paths", "server", "resources"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["REAL_TRADING_ENABLED", "REAL_ORDER_ENABLED", "BROKER_ACCESS", "ACCOUNT_ACCESS", "BROKER_AUTH", "LOCAL_ONLY"],
+      "properties": {
+        "REAL_TRADING_ENABLED": {"const": false},
+        "REAL_ORDER_ENABLED": {"const": false},
+        "BROKER_ACCESS": {"const": false},
+        "ACCOUNT_ACCESS": {"const": false},
+        "BROKER_AUTH": {"const": false},
+        "LOCAL_ONLY": {"const": true}
+      }
+    },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["data", "state", "artifacts", "logs", "legacy_archive"],
+      "properties": {
+        "data": {"type": "string", "minLength": 1},
+        "state": {"type": "string", "minLength": 1},
+        "artifacts": {"type": "string", "minLength": 1},
+        "logs": {"type": "string", "minLength": 1},
+        "legacy_archive": {"type": "string", "minLength": 1}
+      }
+    },
+    "server": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["host", "port"],
+      "properties": {
+        "host": {"enum": ["127.0.0.1", "::1", "localhost"]},
+        "port": {"type": "integer", "minimum": 1, "maximum": 65535}
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_free_bytes", "migration_headroom_bytes"],
+      "properties": {
+        "minimum_free_bytes": {"type": "integer", "minimum": 0},
+        "migration_headroom_bytes": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

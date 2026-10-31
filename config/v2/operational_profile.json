@@ -1,0 +1,94 @@
+{
+  "profile_id": "PUBLIC_FRAMEWORK_EXAMPLE",
+  "version": "1.0",
+  "scope": "SUPPORTED_SCOPE_ONLY",
+  "full_scope_status": "PARTIAL",
+  "supported_profile_status": "PENDING_DATA",
+  "description": "Source-only example. Import and validate your own licensed data.",
+  "mode": {
+    "default": "PENDING_DATA",
+    "live": "PENDING_VENDOR",
+    "paper": "PENDING_QUALIFICATION",
+    "real_trading": "DISABLED"
+  },
+  "supported_securities": [
+    {
+      "ts_code": "510300.SH",
+      "asset_id": "510300.SH",
+      "exchange": "SSE",
+      "security_type": "ETF_DOMESTIC_EQUITY",
+      "basis": "historical_etf_master"
+    },
+    {
+      "ts_code": "510500.SH",
+      "asset_id": "510500.SH",
+      "exchange": "SSE",
+      "security_type": "ETF_DOMESTIC_EQUITY",
+      "basis": "historical_etf_master"
+    },
+    {
+      "ts_code": "159915.SZ",
+      "asset_id": "159915.SZ",
+      "exchange": "SZSE",
+      "security_type": "ETF_DOMESTIC_EQUITY",
+      "basis": "historical_etf_master"
+    }
+  ],
+  "supported_date_windows": [],
+  "required_manifests": {
+    "historical_etf_master": {
+      "manifest_hash": "",
+      "purpose": "bounded ETF3 identity and historical list dates"
+    },
+    "known_etf3_prices": {
+      "manifest_hash": "",
+      "purpose": "supported replay price/OHLCV input"
+    },
+    "known_etf3_limits": {
+      "manifest_hash": "",
+      "purpose": "supported replay execution-limit input"
+    },
+    "research_etf3_prices": {
+      "manifest_hash": "",
+      "purpose": "OOS-authorized common-KNOWN research price input through 2025-08-18"
+    },
+    "research_etf3_limits": {
+      "manifest_hash": "",
+      "purpose": "OOS-authorized common-KNOWN execution-limit input through 2025-08-18"
+    }
+  },
+  "execution_rules": [
+    "ETF lot size is 100 shares.",
+    "Unadjusted execution prices are used for replay fills.",
+    "Execution requires explicit REAL up_limit/down_limit and tradable market state.",
+    "Formal and Independent Reference engines must produce equal snapshots before PASS.",
+    "No broker, account, real-order, or real-trading path is enabled."
+  ],
+  "pit_limits": [
+    "Daily bars are available-at-close-plus-vendor-publication; they are not intraday ticks.",
+    "ETF master carries historical list dates for the bounded three-ETF scope only.",
+    "No full stock historical universe, membership, ST history, PIT financial revisions, or event revisions are claimed.",
+    "Shared research input stops at the common KNOWN OOS boundary of 2025-08-18; later family-scoped or UNKNOWN windows are not merged."
+  ],
+  "research_scope": {
+    "supported": [
+      "REAL_HISTORICAL_REPLAY",
+      "CTRL.v1 cash control",
+      "etf_rotation.v1 supported replay",
+      "etf_lowvol.v1 bounded research/PAPER",
+      "etf_trend_defensive.v1 bounded research/PAPER"
+    ],
+    "frozen_strategy_status": "PENDING_DATA",
+    "promotion": "ONLY_ACTIVE_V2_QUALIFICATION_WITH_STAGE09_CANDIDATE_AND_STAGE10_PASS",
+    "oos_policy": "KNOWN_ONLY_WITH_RESERVED_FUTURE_WINDOWS"
+  },
+  "known_limitations": [
+    "No market data, private OOS history, qualification, account state or acceptance evidence is distributed."
+  ],
+  "evidence_contract": {
+    "synthetic": false,
+    "canonical_store": "data/v2/raw/objects/sha256",
+    "state_store": "state/v2/control.sqlite",
+    "dashboard_mode_label": "SOURCE ONLY / PENDING DATA"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "PLANNED",
+  "oos_access": "KNOWN_ONLY",
+  "policy": {
+    "universe_version": "historical-supported-v1",
+    "availability_policy": "PIT_AVAILABLE_AT",
+    "rebalance_and_execution": "T_CLOSE_SIGNAL_NEXT_SESSION_EXECUTION",
+    "holding_constraints": "LONG_ONLY_NO_LEVERAGE_CASH_ALLOWED",
+    "cost_model": "historical-rulebook-v1",
+    "train_window": ["2018-01-01", "2020-12-31"],
+    "validation_windows": [["2021-01-01", "2021-12-31"], ["2022-01-01", "2022-12-31"], ["2023-01-01", "2024-12-31"]],
+    "primary_metric": "NET_EXCESS_RETURN_WITH_BLOCK_UNCERTAINTY",
+    "statistics_policy": "TIME_BLOCK_CI_PARAMETER_NEIGHBORHOOD_COST_1X_2X",
+    "stop_rule": "ONE_FROZEN_RUN_NO_POST_RESULT_TUNING",
+    "publication_level": "INTERNAL_RESEARCH",
+    "owner_version": "integrated-v2.s06",
+    "candidate_threshold": "0.02"
+  },
+  "items": [
+    {"id":"CTRL","priority":0,"family":"CONTROL","hypothesis":"Pipeline controls expose leakage and accounting defects.","falsifier":"A deliberate future factor is not rejected.","direction":"FIXED","parameters":{"control":["cash","buy_hold","random_rank","future_factor"]},"budget":4,"label_horizon":1,"purge":1,"embargo":0,"dependencies":["canonical_prices"],"control_only":true},
+    {"id":"R01","priority":1,"family":"ETF_ROTATION","hypothesis":"Past medium-horizon ETF momentum may persist after costs.","falsifier":"It does not beat frozen equal-weight ETF control robustly.","direction":"POSITIVE","parameters":{"lookback":[60,120,252],"holding":[1,2]},"budget":6,"label_horizon":21,"purge":21,"embargo":1,"dependencies":["canonical_prices","historical_etf_master"]},
+    {"id":"R02","priority":2,"family":"LOW_VOL","hypothesis":"Lower historical volatility predicts lower-risk relative outcomes.","falsifier":"Industry/size exposure or 2x costs fully explains the result.","direction":"NEGATIVE","parameters":{"window":[60,120,252],"measure":["standard","downside"]},"budget":6,"label_horizon":21,"purge":21,"embargo":1,"dependencies":["canonical_returns","historical_universe"]},
+    {"id":"R03","priority":3,"family":"MOMENTUM","hypothesis":"Causal total-return momentum persists after costs.","falsifier":"Net effect is negative or exists in only one validation block.","direction":"POSITIVE","parameters":{"lookback":[120,252],"skip":[0,21]},"budget":4,"label_horizon":21,"purge":21,"embargo":1,"dependencies":["causal_total_returns","historical_universe"]},
+    {"id":"R04","priority":4,"family":"REVERSAL_LIQUIDITY","hypothesis":"Short-horizon reversal varies by prior liquidity.","falsifier":"Capacity or next-time execution removes the effect.","direction":"NEGATIVE","parameters":{"window":[3,5,10],"liquidity_group":["LOW","HIGH"]},"budget":6,"label_horizon":10,"purge":10,"embargo":1,"dependencies":["unadjusted_execution_prices","past_turnover"]},
+    {"id":"R05","priority":5,"family":"TREND_DEFENSIVE","hypothesis":"Index trend can defensively allocate between ETF and cash.","falsifier":"Cash drag dominates without reliable crisis protection.","direction":"POSITIVE","parameters":{"window":[60,120,200]},"budget":3,"label_horizon":21,"purge":21,"embargo":1,"dependencies":["index_signal_prices","tradable_etf_prices"]},
+    {"id":"R06","priority":6,"family":"LOW_BETA_LIQUIDITY","hypothesis":"Low beta changes portfolio risk after historical exposure controls.","falsifier":"Residual performance and risk contribution show no robust benefit.","direction":"NEGATIVE","parameters":{"window":[120,252],"turnover_filter":[false,true]},"budget":4,"label_horizon":21,"purge":21,"embargo":1,"dependencies":["benchmark_returns","historical_industry","historical_market_cap"]},
+    {"id":"R07","priority":7,"family":"VALUE_DIVIDEND","hypothesis":"Frozen EP BP or dividend yield predicts relative returns.","falsifier":"Units, negative-value policy, or timing evidence invalidates it.","direction":"POSITIVE","parameters":{"factor":["EP","BP","DIVIDEND_YIELD"]},"budget":3,"label_horizon":21,"purge":21,"embargo":1,"dependencies":["pit_valuation","cash_dividends"]},
+    {"id":"R08","priority":8,"family":"QUALITY","hypothesis":"PIT ROE and cash-flow quality predict robust relative outcomes.","falsifier":"Only final revisions or low-volatility proxies support the effect.","direction":"POSITIVE","parameters":{"factor":["ROE","CASH_FLOW_QUALITY","CONSERVATIVE_EQUAL_WEIGHT"]},"budget":3,"label_horizon":63,"purge":63,"embargo":5,"dependencies":["pit_financial_revisions"]},
+    {"id":"R09","priority":9,"family":"ANNOUNCEMENT_DRIFT","hypothesis":"Selected announcements have delayed benchmark-adjusted response.","falsifier":"Timestamp, clustering, mapping, or CAR evidence fails.","direction":"PRE_REGISTERED_BY_EVENT","parameters":{"event":["REPURCHASE","REDUCTION","EARNINGS"],"holding":[5,20]},"budget":6,"label_horizon":20,"purge":20,"embargo":1,"dependencies":["event_text","first_visible_at","security_mapping","benchmark_returns"]}
+  ]
+}

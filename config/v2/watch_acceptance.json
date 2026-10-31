@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "contract_version": "watch.acceptance.v1",
+  "frozen_at": "2026-09-11T10:40:00+08:00",
+  "quote_freshness_seconds": 15,
+  "minute_bar_freshness_seconds": 90,
+  "initial_distinct_timestamps_per_asset": 3,
+  "continuity_window_minutes": 30,
+  "maximum_missing_ratio": 0.1,
+  "recovery_seconds": 120,
+  "required_phase_windows": [
+    "09:30-09:45",
+    "13:00-13:15",
+    "14:45-15:00"
+  ],
+  "stale_signal_block_seconds": 90,
+  "daily_bar_may_satisfy_intraday": false,
+  "three_samples_equal_full_acceptance": false
+}

@@ -1,0 +1,7 @@
+fastapi>=0.110,<1
+uvicorn>=0.29,<1
+numpy>=1.26,<3
+pandas>=2.2,<4
+pyarrow>=16,<30
+requests>=2.31,<3
+tzdata>=2024.1

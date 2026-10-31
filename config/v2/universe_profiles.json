@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {
+      "profile_id": "ETF3_CONTINUOUS",
+      "status": "PARTIAL",
+      "purpose": ["EXECUTION", "PAPER", "RESEARCH"],
+      "as_of_policy": "HISTORICAL_ETF_MASTER_AND_SESSION_COMPLETE_PRICE_LIMIT",
+      "supported_start": "2025-01-02",
+      "supported_end": "2026-08-19",
+      "blocker": "2026-08-20 vendor execution-limit rows are absent for all three ETFs; no derived fallback is allowed.",
+      "evidence_ref": "artifacts/v2/evidence/ETF3_CONTINUITY/etf3_continuous_bundle.json"
+    },
+    {
+      "profile_id": "HS300_PRICE_ONLY",
+      "status": "BLOCKED_DATA",
+      "purpose": ["RESEARCH"],
+      "as_of_policy": "HISTORICAL_INDEX_WEIGHT_VALID_FROM_VALID_TO",
+      "blocker": "No validated historical membership publication is available; the bounded vendor index_weight request returned VENDOR_BUSINESS_ERROR.",
+      "current_membership_backfill": false
+    },
+    {
+      "profile_id": "CSI500_PRICE_ONLY",
+      "status": "NOT_STARTED",
+      "purpose": ["RESEARCH"],
+      "as_of_policy": "HISTORICAL_INDEX_WEIGHT_VALID_FROM_VALID_TO",
+      "blocker": "Depends on a validated historical membership source after HS300 closure.",
+      "current_membership_backfill": false
+    },
+    {
+      "profile_id": "A_SHARE_PRICE_ONLY",
+      "status": "VERIFIED_RESEARCH_ONLY",
+      "purpose": ["FACTOR_RESEARCH", "CROSS_SECTIONAL_RESEARCH"],
+      "as_of_policy": "AVAILABLE_AT_WITH_IMMUTABLE_PARTITION_MANIFEST",
+      "supported_start": "2025-01-02",
+      "supported_end": "2026-09-02",
+      "execution_ready": false,
+      "blocker": "Execution limits and historical constituent membership are intentionally outside this price-only publication.",
+      "evidence_ref": "artifacts/v2/evidence/MARKET_DATA_PLANE/a_share_price_only.json"
+    },
+    {
+      "profile_id": "FUNDAMENTAL_PIT",
+      "status": "BLOCKED_DATA",
+      "purpose": ["FUNDAMENTAL_RESEARCH"],
+      "as_of_policy": "ANNOUNCEMENT_AVAILABLE_AT_AND_REVISION_VERSIONED",
+      "blocker": "Announcement-time and revision lineage have not been validated; report period is not accepted as availability time."
+    }
+  ]
+}

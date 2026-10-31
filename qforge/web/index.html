@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QForgeLab · A股量化投研与模拟交易平台</title>
+<link rel="stylesheet" href="/static/styles.css">
+<script src="/static/vendor/echarts.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <div class="brand">
+      <div class="logo">QF</div>
+      <div>
+        <div class="brand-name">QForgeLab 量化</div>
+        <div class="brand-sub">A股量化研究 · 模拟交易</div>
+      </div>
+    </div>
+    <nav id="nav"></nav>
+    <div class="sidebar-foot">
+      <div class="safety-chips">
+        <span class="chip ok">仅模拟交易</span>
+        <span class="chip ok">本地安全</span>
+        <span class="chip off">无实盘外连</span>
+      </div>
+      <div id="foot-version" class="foot-ver"></div>
+    </div>
+  </aside>
+  <main id="main">
+    <header id="topbar">
+      <h1 id="page-title">总览</h1>
+      <div class="top-actions">
+        <span id="top-status" class="top-status"></span>
+        <button class="btn ghost" onclick="refreshPage()">刷新数据</button>
+      </div>
+    </header>
+    <section id="page"></section>
+  </main>
+</div>
+<div id="modal-box"></div>
+<div id="toast-box"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

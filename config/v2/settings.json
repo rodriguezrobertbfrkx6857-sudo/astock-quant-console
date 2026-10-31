@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "safety": {
+    "REAL_TRADING_ENABLED": false,
+    "REAL_ORDER_ENABLED": false,
+    "BROKER_ACCESS": false,
+    "ACCOUNT_ACCESS": false,
+    "BROKER_AUTH": false,
+    "LOCAL_ONLY": true
+  },
+  "paths": {
+    "data": "data/v2",
+    "state": "state/v2",
+    "artifacts": "artifacts/v2",
+    "logs": "logs/v2",
+    "legacy_archive": "data/v2/legacy_archive/published"
+  },
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8888
+  },
+  "resources": {
+    "minimum_free_bytes": 2147483648,
+    "migration_headroom_bytes": 1073741824
+  }
+}

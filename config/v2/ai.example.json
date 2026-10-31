@@ -1,0 +1,6 @@
+{
+  "enabled": false,
+  "provider": "deepseek",
+  "model": "YOUR_MODEL_NAME",
+  "api_key": ""
+}

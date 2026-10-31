@@ -1,0 +1,15 @@
+{
+  "data_dir": "data/v2",
+  "archive_dir": "data/v2/legacy_archive/published",
+  "logs_dir": "logs/v2",
+  "dashboard_host": "127.0.0.1",
+  "dashboard_port": 8888,
+  "datahubco_enabled": false,
+  "promax_enabled": false,
+  "REAL_TRADING_ENABLED": false,
+  "REAL_ORDER_ENABLED": false,
+  "BROKER_ACCESS": false,
+  "ACCOUNT_ACCESS": false,
+  "BROKER_AUTH": false,
+  "LOCAL_ONLY": true
+}
